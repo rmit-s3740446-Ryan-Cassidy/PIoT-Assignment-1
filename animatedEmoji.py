@@ -10,39 +10,42 @@ R = (255, 0, 0)
 W = (255,255,255)
 O = (0,0,0)
 P = (255,105, 180)
+CB = (61,89,171)
+BR = (165,42,42)
+GO = (238,201,0)
 
-first = [O, O, O, B, O, O, O, O,
-            O, O, B, B, O, O, O, O,
-            O, B, O, B, O, O, O, O,
-            B, O, O, B, B, B, B, B,
-            B, O, O, B, B, B, B, B,
-            O, B, O, B, O, O, O, O,
-            O, O, B, B, O, O, O, O,
-            O, O, O, B, O, O, O, O]
+happy_emoji = [O, O, O, O, O, O, O, O,
+            O, G, G, O, O, G, G, O,
+            O, O, O, O, O, O, O, O,
+            O, O, O, Y, Y, O, O, O,
+            O, B, O, O, O, O, B, O,
+            O, O, B, B, B, B, O, O,
+            O, O, O, O, O, O, O, O,
+            O, O, O, O, O, O, O, O]
 
-second = [O, O, O, G, G, O, O, O,
-            O, O, G, O, O, G, O, O,
-            O, G, O, O, O, O, G, O,
-            G, G, G, G, G, G, G, G,
-            O, O, O, G, G, O, O, O,
-            O, O, O, G, G, O, O, O,
-            O, O, O, G, G, O, O, O,
-            O, O, O, G, G, O, O, O]
+sad_emoji = [O, O, O, O, O, O, O, O,
+            O, R, R, O, O, R, R, O,
+            O, O, O, O, O, O, O, O,
+            O, O, O, P, P, O, O, O,
+            O, O, O, O, O, O, O, O,
+            O, O, W, W, W, W, O, O,
+            O, W, O, O, O, O, W, O,
+            O, O, O, O, O, O, O, O]
 
-third = [O, O, O, O, Y, O, O, O,
-            O, O, O, O, Y, Y, O, O,
-            O, O, O, O, Y, O, Y, O,
-            Y, Y, Y, Y, Y, O, O, Y,
-            Y, Y, Y, Y, Y, O, O, Y,
-            O, O, O, O, Y, O, Y, O,
-            O, O, O, O, Y, Y, O, O,
-            O, O, O, O, Y, O, O, O]
+poker_emoji = [O, O, O, O, O, O, O, O,
+            O, CB, CB, O, O, CB, CB, O,
+            O, O, O, O, O, O, O, O,
+            O, O, O, BR, BR, O, O, O,
+            O, O, O, O, O, O, O, O,
+            O, GO, GO, GO, GO, GO, GO, O,
+            O, O, O, O, O, O, O, O,
+            O, O, O, O, O, O, O, O]
 
-sense.set_pixels(first)
+sense.set_pixels(happy_emoji)
 time.sleep(3)
-sense.set_pixels(second)
+sense.set_pixels(sad_emoji)
 time.sleep(3)
-sense.set_pixels(third)
+sense.set_pixels(poker_emoji)
 time.sleep(3)
 sense.clear()
 quit()
