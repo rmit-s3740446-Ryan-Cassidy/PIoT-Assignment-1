@@ -1,22 +1,24 @@
 from sense_hat import SenseHat
 import time
 import random
+#Set game_mode to True for single roll returning value
+#False for demonstration purposes
 class elec_die:
     def __init__(self, mode):
         self.game_mode = mode
     sense = SenseHat()
     game_mode = False
 
-    #Colors
+    #Colours
     W = (255,255,255)
     O = (0,0,0)
     B = (0, 0, 255)
 
-    #settings
+    #Settings
     accel_limit = 1.5
     display_time = 3
 
-    #die LED arrays
+    #Die LED arrays
     one =      [O, O, O, O, O, O, O, O,
                 O, O, O, O, O, O, O, O,
                 O, O, O, O, O, O, O, O,
