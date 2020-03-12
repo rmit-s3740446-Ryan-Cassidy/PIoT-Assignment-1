@@ -110,5 +110,8 @@ class elec_die:
         except Exception as e:
             print(str(e))
             self.sense.clear()
-die = elec_die(False)
-die.prompt()
+
+#Standalone testing
+if __name__ == '__main__':
+    die = elec_die(False)
+    die.prompt()
