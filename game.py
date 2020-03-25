@@ -4,6 +4,13 @@ import csv
 import os
 import datetime
 
+class player:
+    def __init__(self, name):
+        self.name = name
+    name = None
+    score = 0
+
+
 class die_game:
     sense = SenseHat()
     #Electronic die instance
@@ -13,37 +20,49 @@ class die_game:
     filename = "winner.csv"
 
     #Check if file exists
-    if os.path.exists(filename) == False:
-        with open(filename, 'w') as csvfile:
-            writer = csv.writer(csvfile, delimiter=',',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            writer.writerow(['Winner', 'P1 Score', 'P2 Score', 'Time'])
+    def fileexists(self):
+        if os.path.exists(self.filename) == False:
+            with open(self.filename, 'w') as csvfile:
+                writer = csv.writer(csvfile, delimiter=',',
+                                    quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                writer.writerow(['Winner', 'P1 Score', 'P2 Score', 'Time'])
 
     #Players
-    p1 = 0
-    p2 = 0
+    p1 = player("P1")
+    p2 = player("P2")
     winner = None
+
     def start(self):
-        self.sense.show_message("Game")
-        while True:
-            self.sense.show_message("P1 Turn")
-            self.p1 += self.die.prompt()
-            print(self.p1)
-            if self.p1 >= 30:
-                break
-            self.sense.show_message("P2 Turn")
-            self.p2 += self.die.prompt()
-            print(self.p2)
-            if self.p2 >= 30:
-                break
-        if self.p1 > self.p2:
-            self.winner = 'p1'
-            self.sense.show_message("P1 is the winner")
-        else:
-            self.winner = 'p2'
-            self.sense.show_message("P2 is the winner")
-        with open(self.filename, 'a') as csvfile:
-            writer = csv.writer(csvfile, delimiter=',',
-                                    quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            writer.writerow([self.winner, self.p1, self.p2, datetime.datetime.now()])
-        self.sense.show_message("End")
+        try:
+            self.fileexists()
+            self.sense.show_message("Game")
+            while True:
+                self.sense.show_message(self.p1.name + " Turn")
+                self.p1.score += self.die.prompt()
+                print("P1 = " + str(self.p1.score))
+                if self.p1.score >= 30:
+                    break
+                self.sense.show_message(self.p2.name + " Turn")
+                self.p2.score += self.die.prompt()
+                print("P2 = " + str(self.p2.score))
+                if self.p2.score >= 30:
+                    break
+            if self.p1.score > self.p2.score:
+                self.winner = self.p1.name
+                self.sense.show_message(self.p1.name + " is the winner")
+            else:
+                self.winner = self.p2.name
+                self.sense.show_message(self.p2.name + " is the winner")
+            with open(self.filename, 'a') as csvfile:
+                writer = csv.writer(csvfile, delimiter=',',
+                                        quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([self.winner, self.p1.score, self.p2.score, datetime.datetime.now()])
+            self.sense.show_message("End")
+        except Exception as e:
+            print(str(e))
+            self.sense.clear()
+
+#Standalone testing
+if __name__ == '__main__':
+    game = die_game()
+    game.start()
