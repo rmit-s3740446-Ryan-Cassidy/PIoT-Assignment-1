@@ -7,16 +7,16 @@ class elec_die:
     def __init__(self, mode):
         self.game_mode = mode
     sense = SenseHat()
-    game_mode = False
 
     #Colours
-    W = (255,255,255)
     O = (0,0,0)
     B = (0, 0, 255)
 
     #Settings
+    #game_mode setting determines if dice will roll infinitely (Used for testing)
     accel_limit = 1.5
     display_time = 3
+    game_mode = False
 
     #Die LED arrays
     one =      [O, O, O, O, O, O, O, O,
@@ -73,6 +73,7 @@ class elec_die:
                 B, B, O, O, O, O, B, B,
                 B, B, O, O, O, O, B, B]
 
+    #Roll function
     def rolldie(self):
         r = random.randint(1, 6)
         if r == 1:
@@ -89,8 +90,9 @@ class elec_die:
             self.sense.set_pixels(self.six)
         return r
 
-    # Accelerometer measuring reference
-    # https://projects.raspberrypi.org/en/projects/getting-started-with-the-sense-hat/8
+    #Accelerometer measuring reference
+    #https://projects.raspberrypi.org/en/projects/getting-started-with-the-sense-hat/8
+    #Prompt for shaking to roll
     def prompt(self):
         try:
             self.sense.clear()

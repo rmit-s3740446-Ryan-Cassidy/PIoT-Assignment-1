@@ -19,7 +19,7 @@ class die_game:
     #csv file
     filename = "winner.csv"
 
-    #Check if file exists
+    #Check if winner.csv exists
     def fileexists(self):
         if os.path.exists(self.filename) == False:
             with open(self.filename, 'w') as csvfile:
@@ -32,27 +32,38 @@ class die_game:
     p2 = player("P2")
     winner = None
 
+    #Game start
     def start(self):
         try:
+            #Check for winner.csv
             self.fileexists()
-            self.sense.show_message("Game")
+
+            #Display instructions
+            self.sense.show_message("Take turns rolling dice by shaking Pi")
+            self.sense.show_message("First player to 30 wins")
+
+            #Loop player turns till one players score >= 30
             while True:
-                self.sense.show_message(self.p1.name + " Turn")
+                self.sense.show_message(self.p1.name + " Turn, " + self.p1.score +" points")
                 self.p1.score += self.die.prompt()
                 print("P1 = " + str(self.p1.score))
                 if self.p1.score >= 30:
                     break
-                self.sense.show_message(self.p2.name + " Turn")
+                self.sense.show_message(self.p2.name + " Turn, " + self.p2.score +" points")
                 self.p2.score += self.die.prompt()
                 print("P2 = " + str(self.p2.score))
                 if self.p2.score >= 30:
                     break
+            
+            #Determine winner
             if self.p1.score > self.p2.score:
                 self.winner = self.p1.name
                 self.sense.show_message(self.p1.name + " is the winner")
             else:
                 self.winner = self.p2.name
                 self.sense.show_message(self.p2.name + " is the winner")
+            
+            #Record game information to winner.csv
             with open(self.filename, 'a') as csvfile:
                 writer = csv.writer(csvfile, delimiter=',',
                                         quotechar='|', quoting=csv.QUOTE_MINIMAL)
