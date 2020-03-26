@@ -34,6 +34,7 @@ class die_game:
 
     #Game start
     def start(self):
+        exit = False
         try:
             #Check for winner.csv
             self.fileexists()
@@ -44,34 +45,43 @@ class die_game:
 
             #Loop player turns till one players score >= 30
             while True:
-                self.sense.show_message(self.p1.name + " Turn, " + self.p1.score +" points")
+                self.sense.show_message(self.p1.name + " Turn, " + str(self.p1.score) +" points")
                 self.p1.score += self.die.prompt()
                 print("P1 = " + str(self.p1.score))
                 if self.p1.score >= 30:
+                    self.endgame()
                     break
-                self.sense.show_message(self.p2.name + " Turn, " + self.p2.score +" points")
+                self.sense.show_message(self.p2.name + " Turn, " + str(self.p2.score) +" points")
                 self.p2.score += self.die.prompt()
                 print("P2 = " + str(self.p2.score))
                 if self.p2.score >= 30:
+                    self.endgame()
                     break
-            
-            #Determine winner
-            if self.p1.score > self.p2.score:
-                self.winner = self.p1.name
-                self.sense.show_message(self.p1.name + " is the winner")
-            else:
-                self.winner = self.p2.name
-                self.sense.show_message(self.p2.name + " is the winner")
-            
-            #Record game information to winner.csv
-            with open(self.filename, 'a') as csvfile:
-                writer = csv.writer(csvfile, delimiter=',',
-                                        quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                writer.writerow([self.winner, self.p1.score, self.p2.score, datetime.datetime.now()])
-            self.sense.show_message("End")
+                #check joystick events, exit if middle is pressed
+                for event in self.sense.stick.get_events():
+                    if event.direction == 'middle' and event.action == 'released':
+                        exit = True
+                if exit == True:
+                    break
         except Exception as e:
             print(str(e))
             self.sense.clear()
+
+    def endgame(self):        
+        #Determine winner
+        if self.p1.score > self.p2.score:
+            self.winner = self.p1.name
+            self.sense.show_message(self.p1.name + " is the winner")
+        else:
+            self.winner = self.p2.name
+            self.sense.show_message(self.p2.name + " is the winner")
+        
+        #Record game information to winner.csv
+        with open(self.filename, 'a') as csvfile:
+            writer = csv.writer(csvfile, delimiter=',',
+                                    quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            writer.writerow([self.winner, self.p1.score, self.p2.score, datetime.datetime.now()])
+        self.sense.show_message("End")
 
 #Standalone testing
 if __name__ == '__main__':
