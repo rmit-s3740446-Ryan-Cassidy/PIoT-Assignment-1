@@ -35,12 +35,13 @@ class monitor_display:
         #bool for quitting
         exit = False
         while True:
+            #Accurate temperature code referenced from IoT Lecture 4
             #reading temprature from sense hat and converting to int.
             t1 = self.sense.get_temperature_from_humidity()
             t2 = self.sense.get_temperature_from_pressure()
             t_cpu = get_cpu_temp()
 
-    # Calculates the real temperature compesating CPU heating.
+            # Calculates the real temperature compensating CPU heating.
             t = (t1 + t2) / 2
             t_corr = t - ((t_cpu - t) / 1.5)
             t_corr = get_smooth(t_corr)

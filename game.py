@@ -3,6 +3,7 @@ import electronicDie
 import csv
 import os
 import datetime
+import traceback
 
 class player:
     def __init__(self, name):
@@ -57,14 +58,19 @@ class die_game:
                 if self.p2.score >= 30:
                     self.endgame()
                     break
+
                 #check joystick events, exit if middle is pressed
-                for event in self.sense.stick.get_events():
-                    if event.direction == 'middle' and event.action == 'released':
+                events = self.sense.stick.get_events()
+                if len(events) > 0:
+                    if events[-1].direction == 'middle':
                         exit = True
                 if exit == True:
+                    self.p1.score = 0
+                    self.p2.score = 0
                     break
         except Exception as e:
             print(str(e))
+            traceback.print_exc()
             self.sense.clear()
 
     def endgame(self):        
@@ -86,4 +92,5 @@ class die_game:
 #Standalone testing
 if __name__ == '__main__':
     game = die_game()
+    game.fileexists()
     game.start()

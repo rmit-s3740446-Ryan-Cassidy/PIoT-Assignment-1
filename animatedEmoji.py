@@ -50,4 +50,3 @@ class AnimatedEmoji:
         self.sense.set_pixels(self.poker_emoji)
         time.sleep(3)
         self.sense.clear()
-        quit()
