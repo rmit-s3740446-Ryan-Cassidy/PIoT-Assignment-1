@@ -3,7 +3,7 @@ import time
 import random
 #Set game_mode to True for single roll returning value
 #False for demonstration purposes
-class elec_die:
+class ElectronicDie:
     def __init__(self, mode):
         self.game_mode = mode
     sense = SenseHat()
@@ -74,7 +74,7 @@ class elec_die:
                 B, B, O, O, O, O, B, B]
 
     #Roll function
-    def rolldie(self):
+    def roll_die(self):
         r = random.randint(1, 6)
         if r == 1:
             self.sense.set_pixels(self.one)
@@ -104,7 +104,7 @@ class elec_die:
                 y1 = abs(y)
                 z1 = abs(z)
                 if x1 > self.accel_limit or y1 > self.accel_limit or z1 > self.accel_limit:
-                    r = self.rolldie()
+                    r = self.roll_die()
                     time.sleep(self.display_time)
                     self.sense.clear()
                     if self.game_mode == True:
@@ -115,5 +115,5 @@ class elec_die:
 
 #Standalone testing
 if __name__ == '__main__':
-    die = elec_die(False)
+    die = ElectronicDie(False)
     die.prompt()

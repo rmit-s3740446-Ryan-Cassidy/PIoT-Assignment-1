@@ -7,38 +7,43 @@ import game
 
 sense = SenseHat()
 animate = animatedEmoji.AnimatedEmoji()
-temp = monitorAndDisplay.monitor_display()
-game = game.die_game()
+temp = monitorAndDisplay.MonitorDisplay()
+game = game.DieGame()
 
-def taskone():
+
+def task_one():
     print("Task One")
     animate.display()
 
-def tasktwo():
+
+def task_two():
     print("Task Two")
-    temp.readjson()
+    temp.read_json()
     temp.start()
 
-def taskthree():
+
+def task_three():
     print("Task Three")
-    game.fileexists()
+    game.file_exists()
     game.start()
 
-def endprogram():
+
+def end_program():
     sense.clear()
     print("Quitting")
     quit()
+
 
 while True:
     for event in sense.stick.get_events():
         if event.action == "pressed":
             if event.direction == "left":
-                taskone()
-            elif event.direction == 'up':
-                tasktwo()
-            elif event.direction == 'right':
-                taskthree()
-            elif event.direction == 'down':
-                endprogram()
+                task_one()
+            elif event.direction == "up":
+                task_two()
+            elif event.direction == "right":
+                task_three()
+            elif event.direction == "down":
+                end_program()
             sense.stick.get_events().clear()
             sleep(0.5)
