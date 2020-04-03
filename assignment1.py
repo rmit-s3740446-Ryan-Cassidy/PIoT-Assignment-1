@@ -26,6 +26,7 @@ def task_three():
     print("Task Three")
     game.file_exists()
     game.start()
+    game.reset()
 
 
 def end_program():

@@ -79,7 +79,14 @@ class DieGame:
             print(str(e))
             traceback.print_exc()
             self.sense.clear()
+    
+    #Function for resetting game
+    def reset(self):
+        self.p1.score = 0
+        self.p2.score = 0
+        self.winner = None
 
+    #End of game function
     def endgame(self):
         # Determine winner
         if self.p1.score > self.p2.score:

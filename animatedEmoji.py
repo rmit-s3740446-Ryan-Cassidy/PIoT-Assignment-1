@@ -50,3 +50,8 @@ class AnimatedEmoji:
         self.sense.set_pixels(self.poker_emoji)
         time.sleep(3)
         self.sense.clear()
+
+#Standalone testing
+if __name__ == '__main__':
+    animate = AnimatedEmoji()
+    animate.display()
