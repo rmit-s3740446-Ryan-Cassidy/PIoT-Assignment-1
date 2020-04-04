@@ -4,6 +4,7 @@ Programming Internet of Things (COSC2755) Assignment 1
 By
 
 Ryan Cassidy - S3740446
+
 Vineet Bugtani - S3734938
 
 This repository contains a small python program created to cover the requirements of our first assignment for PIOT.
