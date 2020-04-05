@@ -1,0 +1,53 @@
+Analysis of code
+
+assignment1.py:
+This class is something extra made for this assignment.
+It imports each task as an object and allows for selection via the raspberry pi joystick.
+Each task is able to be run independently from this file so it does not have to be used.
+Just an extra attempt at utilizing the joystick and objects.
+
+animatedEmoji.py:
+Task a of the assignment.
+Creates 3 arrays for displaying some basic pictures on the pi LED.
+Each emoji is displayed with a 3 second interval and then the program ends.
+
+monitorAndDisplay.py:
+Task b of the assignment.
+Gets a reading of the temperature from the pressure and humidity sensors on the pi.
+This reading is adjusted to take into account the CPU temp.
+The code for it is referenced from lecture 4.
+The color of the reading is compared against the config.json file in order to display it
+as a blue, green or red depending on the temperature.
+Can be canceled by clicking the middle input on the joystick.
+
+electronicDie.py:
+Task c of the assignment.
+This class handles the shaking of the die component of the game for task c of this assignment.
+Contains 6 arrays for displaying die faces.
+The game_mode boolean determines whether the die is in demonstration mode or game mode.
+Demonstration mode allows for endless rolling.
+Game mode returns a value depending on the roll.
+accel_limit is a value that determines how hard a user has to shake the pi in order for it to roll.
+display_time determines how long the roll LED will display for.
+A shake is detected via obtaining the raw xyz values of the accelerometer, 
+converting them to their absolute value and then checking if all of those values are above the accel_limit.
+If so then a random number between 1 and 6 is generated and compared against an elif to display and return a number.
+
+game.py:
+Task c of the assignment.
+This class handles the logic for the game itself.
+electronicDie.py is imported as an object and called for dice rolls on each player.
+The player object has a name and incrementing score.
+When run the game checks for an existing winner.csv file which is where game records are stored.
+If it doesn't exist it is created and the header rows are written.
+Initial instructions are displayed on the LED for each player to understand the game.
+Then P1 is prompted to shake the pi, causing the electronicDie class to roll and return a number.
+This number is added to P1's score and then P2 is prompted to do the same.
+This goes back and forth until one player has a score greater than 30.
+The pi displays the winner and then appends the results of the game in winner.csv.
+This game can be canceled by pressing the joystick in the middle.
+It will stop at the end of P2's turn.
+
+The repository for this project can be found at:
+https://github.com/rmit-s3740446-Ryan-Cassidy/PIoT-Assignment-1
+This is a private repository that can be made public upon request.
